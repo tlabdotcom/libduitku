@@ -26,10 +26,6 @@ const (
 	Ritel string = "FT"
 	// OVO is a default value of OVO from duitku.
 	OVO string = "OV"
-	// IndodanaPaylater is a default value of Indodana Paylater from duitku.
-	IndodanaPaylater string = "DN"
-	// ShopeePay is a default value of Indodana Shopee Pay from duitku.
-	ShopeePay string = "SP"
 )
 
 // HashToMD5 is used to generate signature
