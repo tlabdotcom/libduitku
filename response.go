@@ -1,5 +1,7 @@
 package libduitku
 
+import "github.com/shopspring/decimal"
+
 type (
 	// ErrorResponse is struct response error of services
 	ErrorResponse struct {
@@ -8,8 +10,32 @@ type (
 		Message string `json:"message"`
 	}
 
-	// DuitkuCheckTransactionResponse struct model
-	DuitkuCheckTransactionResponse struct {
+	// DisbursementResponse struct model
+	DisbursementResponse struct {
+		UserID           int             `json:"userId,omitempty"`
+		Balance          decimal.Decimal `json:"balance,omitempty"`
+		EffectiveBalance decimal.Decimal `json:"effectiveBalance,omitempty"`
+		Email            string          `json:"email,omitempty"`
+		Reference        string          `json:"reference,omitempty"`
+		BankCode         string          `json:"bankCode,omitempty"`
+		BankAccount      string          `json:"bankAccount,omitempty"`
+		AmountTransfer   decimal.Decimal `json:"amountTransfer,omitempty"`
+		CustRefNumber    string          `json:"custRefNumber,omitempty"`
+		AccountName      string          `json:"accountName,omitempty"`
+		DisburseID       int             `json:"disburseId,omitempty"`
+		ResponseCode     string          `json:"responseCode,omitempty"`
+		ResponseDesc     string          `json:"responseDesc,omitempty"`
+		Banks            []Banks         `json:"banks,omitempty"`
+	}
+
+	// Banks struct model
+	Banks struct {
+		BankCode string `json:"bankCode"`
+		BankName string `json:"bankName"`
+	}
+
+	// CheckTransactionResponse struct model
+	CheckTransactionResponse struct {
 		MerchantCode  string `json:"merchantCode"`
 		Amount        string `json:"amount"`
 		Reference     string `json:"reference"`
@@ -18,8 +44,8 @@ type (
 		StatusMessage string `json:"statusMessage"`
 	}
 
-	// DuitkuTransactionResponse struct model
-	DuitkuTransactionResponse struct {
+	// TransactionResponse struct model
+	TransactionResponse struct {
 		MerchantCode         string `json:"merchantCode"`
 		Reference            string `json:"reference"`
 		PaymentURL           string `json:"paymentUrl"`
@@ -28,8 +54,8 @@ type (
 		QRString             string `json:"qrString"`
 	}
 
-	// DuitkuCallbackResponse struct model
-	DuitkuCallbackResponse struct {
+	// CallbackResponse struct model
+	CallbackResponse struct {
 		MerchantCode    string `json:"merchantCode"`
 		Amount          string `json:"amount"`
 		MerchantOrderID string `json:"merchantOrderId"`
@@ -42,8 +68,8 @@ type (
 		Signature       string `json:"signature"`
 	}
 
-	// DuitkuRedirectResponse struct model
-	DuitkuRedirectResponse struct {
+	// RedirectResponse struct model
+	RedirectResponse struct {
 		MerchantOrderID string `json:"merchantOrderId"`
 		Reference       string `json:"reference"`
 		ResultCode      string `json:"resultCode"`

@@ -14,13 +14,16 @@ import (
 
 // Client is a struct of duitku
 type Client struct {
-	Host         string
-	MerchantCode string
-	APIKey       string
-	ReturnURL    string
-	CallbackURL  string
-	LogLevel     int
-	Logger       *log.Logger
+	Host               string
+	MerchantCode       string
+	APIKey             string
+	ReturnURL          string
+	CallbackURL        string
+	DisbursementUserID int
+	DisbursementEmail  string
+	DisbursementKey    string
+	LogLevel           int
+	Logger             *log.Logger
 }
 
 // NewClient is used to initial client

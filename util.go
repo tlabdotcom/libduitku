@@ -2,7 +2,10 @@ package libduitku
 
 import (
 	"crypto/md5"
+	"crypto/sha256"
 	"fmt"
+	"strings"
+	"time"
 )
 
 const (
@@ -29,6 +32,23 @@ const (
 )
 
 // HashToMD5 is used to generate signature
-func HashToMD5(str string) string {
+func (core *CoreDuitku) hashToMD5(str string) string {
 	return fmt.Sprintf("%x", md5.Sum([]byte(str)))
+}
+
+func (core *CoreDuitku) isSanbox(prod, sandbox string) string {
+	if strings.Contains(core.Client.Host, "sandbox.duitku") {
+		return sandbox
+	}
+	return prod
+}
+
+func (core *CoreDuitku) hashToSHA256(data string) string {
+	h := sha256.New()
+	h.Write([]byte(data))
+	return fmt.Sprintf("%x", h.Sum(nil))
+}
+
+func (core *CoreDuitku) makeTimestamp() int64 {
+	return time.Now().UnixNano() / int64(time.Millisecond)
 }

@@ -14,9 +14,9 @@ const (
 )
 
 // RequestTransaction is used to request payment to Duitku
-func (core *CoreDuitku) RequestTransaction(req DuitkuTransactionRequest) (res DuitkuTransactionResponse, err error) {
+func (core *CoreDuitku) RequestTransaction(req TransactionRequest) (res TransactionResponse, err error) {
 	req.MerchantCode = core.Client.MerchantCode
-	req.Signature = HashToMD5(fmt.Sprintf("%s%s%v%s",
+	req.Signature = core.hashToMD5(fmt.Sprintf("%s%s%v%s",
 		core.Client.MerchantCode,
 		req.MerchantOrderID,
 		req.PaymentAmount,
@@ -41,10 +41,10 @@ func (core *CoreDuitku) RequestTransaction(req DuitkuTransactionRequest) (res Du
 }
 
 // CheckTransaction is used to check status transaction to duitku
-func (core *CoreDuitku) CheckTransaction(orderID string) (res DuitkuCheckTransactionResponse, err error) {
-	var req DuitkuCheckTransactionRequest
+func (core *CoreDuitku) CheckTransaction(orderID string) (res CheckTransactionResponse, err error) {
+	var req CheckTransactionRequest
 	req.MerchantCode = core.Client.MerchantCode
-	req.Signature = HashToMD5(fmt.Sprintf("%s%s%s", core.Client.MerchantCode, orderID, core.Client.APIKey))
+	req.Signature = core.hashToMD5(fmt.Sprintf("%s%s%s", core.Client.MerchantCode, orderID, core.Client.APIKey))
 	req.MerchantOrderID = orderID
 	data, err := json.Marshal(req)
 	if err != nil {
